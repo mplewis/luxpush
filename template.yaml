@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Push Gmail events for Luxer One from Zapier to Pushbullet
+
+Globals:
+  Function:
+    Timeout: 15
+
+Resources:
+  Handler:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/
+      Handler: index.handler
+      Runtime: nodejs8.10
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
+
+Outputs:
+  HandlerAPI:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
